@@ -67,7 +67,6 @@ export function KartuDepan({ siswa, pengaturan, desain }: Props) {
       <div style={{ fontSize: `${3 * fs}mm`, lineHeight: 1.35, marginTop: 1 }}>
         <div><b>NIS</b> : {siswa.nis || '-'}</div>
         <div><b>NISN</b> : {siswa.nisn || '-'}</div>
-        <div><b>Kelas</b> : {siswa.kelas}</div>
         <div><b>TTL</b> : {siswa.tempatLahir ? `${siswa.tempatLahir}, ` : ''}{fmtTanggal(siswa.tanggalLahir)}</div>
         <div><b>Th. Pelajaran</b> : {siswa.tahunPelajaran || pengaturan.tahunPelajaran}</div>
       </div>
@@ -128,7 +127,7 @@ export function KartuBelakang({ siswa, pengaturan, desain }: Props) {
         <div style={{ fontSize: `${2.2 * fs}mm` }}>{pengaturan.alamatMadrasah}{pengaturan.teleponMadrasah ? ` | Telp. ${pengaturan.teleponMadrasah}` : ''}</div>
       </div>
       <div style={{ padding: '2.5mm 3mm', fontSize: `${2.8 * fs}mm`, lineHeight: 1.4 }}>
-        <div><b>Nama</b> : {siswa.nama} &nbsp;|&nbsp; <b>Kelas</b> : {siswa.kelas} &nbsp;|&nbsp; <b>No. Kartu</b> : {siswa.nomorKartu}</div>
+        <div><b>Nama</b> : {siswa.nama} &nbsp;|&nbsp; <b>No. Kartu</b> : {siswa.nomorKartu}</div>
         {siswa.alamat && <div><b>Alamat siswa</b> : {siswa.alamat}</div>}
         <div style={{ marginTop: '1mm' }}><b>Tata tertib singkat:</b> Kartu ini milik pemegang yang namanya tercantum; wajib dibawa saat di madrasah; bila hilang segera lapor ke madrasah; kartu tidak boleh dipinjamkan kepada orang lain; kartu yang ditemukan harap dikembalikan ke madrasah.</div>
         <div style={{ marginTop: '1mm' }}>Diterbitkan: {fmtTanggal(siswa.tanggalTerbit) === '-' ? '(tanggal terbit diisi saat kartu ditandai sudah dicetak)' : fmtTanggal(siswa.tanggalTerbit)}</div>
