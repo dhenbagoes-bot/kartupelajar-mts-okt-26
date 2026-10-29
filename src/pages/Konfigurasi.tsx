@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { Btn, Card, Field, Input, Pesan } from '../components/ui';
-import { getApiUrl, initDatabase, ping, setApiUrl, setUrlEfektif } from '../services/api';
+import { getApiUrl, getUrlEfektif, initDatabase, ping, setApiUrl, setUrlEfektif } from '../services/api';
 
 export default function Konfigurasi({ onKembali, onTersambung }: { onKembali: () => void; onTersambung: () => void }) {
-  const [url, setUrl] = useState(getApiUrl());
+  const [url, setUrl] = useState(getApiUrl() || getUrlEfektif());
   const [pesan, setPesan] = useState('');
   const [jenis, setJenis] = useState<'info' | 'sukses' | 'error'>('info');
   const [sibuk, setSibuk] = useState(false);
+
+  // URL yang dipakai Uji/Inisialisasi: isi kolom dulu, bila kosong pakai
+  // URL efektif dari schools.json. Tanpa fallback ini, tombol Uji di
+  // perangkat baru selalu gagal ("belum dikonfigurasi") padahal login
+  // sudah bisa tersambung otomatis lewat schools.json.
 
   function simpanUrl() {
     const u = url.trim();
@@ -19,7 +24,9 @@ export default function Konfigurasi({ onKembali, onTersambung }: { onKembali: ()
   async function uji() {
     setSibuk(true);
     try {
-      setApiUrl(url.trim()); setUrlEfektif(url.trim());
+      const u = url.trim() || getUrlEfektif();
+      if (!u) throw new Error('URL backend belum diisi dan tidak ada URL di schools.json.');
+      setApiUrl(u); setUrlEfektif(u); setUrl(u);
       const h = await ping();
       setPesan(`Terhubung! Backend versi ${h.version}, waktu server ${h.waktu}.`);
       setJenis('sukses');
@@ -31,7 +38,9 @@ export default function Konfigurasi({ onKembali, onTersambung }: { onKembali: ()
   async function init() {
     setSibuk(true);
     try {
-      setApiUrl(url.trim()); setUrlEfektif(url.trim());
+      const u = url.trim() || getUrlEfektif();
+      if (!u) throw new Error('URL backend belum diisi dan tidak ada URL di schools.json.');
+      setApiUrl(u); setUrlEfektif(u); setUrl(u);
       const h = await initDatabase();
       setPesan(`Database diinisialisasi: ${h.sheets.join(', ')}. Data lama dipertahankan. Akun bawaan hanya dibuat bila sheet Pengguna masih kosong — segera ganti kata sandinya setelah login.`);
       setJenis('sukses');

@@ -1,4 +1,10 @@
-# Kartu Pelajar MTs AL ISLAM NGLESES — wwn-kartu-80 v1.0.0
+# Kartu Pelajar MTs AL ISLAM NGLESES — wwn-kartu-80 v1.0.1
+
+> **v1.0.1 (29 Okt 2026):** perbaikan kecil di halaman Konfigurasi —
+> tombol Uji Koneksi & Inisialisasi Database kini memakai URL dari
+> `schools.json` bila kolom URL kosong, jadi tidak lagi gagal di
+> perangkat baru padahal login sudah tersambung otomatis. Backend tidak
+> berubah (tetap v1.0.0).
 
 Aplikasi web untuk membuat, mengelola, dan mencetak Kartu Pelajar
 MTs AL ISLAM NGLESES, Juwangi, Boyolali. Data tersimpan di
